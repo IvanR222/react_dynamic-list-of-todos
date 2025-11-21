@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useTodoContext } from '../../context/TodoContext';
 
 export const TodoList: React.FC = () => {
@@ -44,16 +45,18 @@ export const TodoList: React.FC = () => {
                   {/* show / hide button */}
                   <button
                     data-cy="selectButton"
-                    className={`button is-small ${selectedTodo && selectedTodo.id === todo.id ? 'is-danger' : 'is-info'}`}
+                    className={classNames('button', 'is-small', {
+                      'is-danger': selectedTodo && selectedTodo.id === todo.id,
+                      'is-info': !selectedTodo || selectedTodo.id !== todo.id,
+                    })}
                     onClick={() => setSelectedTodo(todo)}
                   >
                     <span className="icon">
                       <i
-                        className={
-                          selectedTodo && selectedTodo.id === todo.id
-                            ? 'fas fa-eye-slash'
-                            : 'fas fa-eye'
-                        }
+                        className={classNames({
+                          'fas fa-eye-slash': selectedTodo && selectedTodo.id === todo.id,
+                          'fas fa-eye': !selectedTodo || selectedTodo.id !== todo.id,
+                        })}
                       />
                     </span>
                   </button>
